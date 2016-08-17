@@ -8,6 +8,7 @@ import { EventEmitter } from 'fbemitter';
 import navigationHelper from '../helpers/navigation';
 import styles from '../styles/root';
 import Menu from './Menu';
+import Tides from './Tides';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPage';
@@ -54,8 +55,8 @@ class App extends Component {
                     ref={(ref) => this._navigator = ref}
                     configureScene={(route) => Navigator.SceneConfigs.FloatFromLeft}
                     initialRoute={{
-                        id: 'FirstPage',
-                        title: 'First Page',
+                        id: 'Tides',
+                        title: 'Tides',
                         index: 0
                     }}
                     renderScene={(route, navigator) => this._renderScene(route, navigator)}
@@ -71,6 +72,8 @@ class App extends Component {
 
     _renderScene(route, navigator) {
         switch (route.id) {
+          case 'Tides':
+            return (<Tides navigator={navigator} />);
           case 'FirstPage':
             return (<FirstPage navigator={navigator} />);
           case 'SecondPage':

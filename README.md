@@ -1,5 +1,9 @@
-#RNNavDraw
+#Tidetracker
 
-Starter kit for React Native App with menu drawer and navigation.
+Tidetracker is a mobile app, written in React native. The main idea is to learn the technology and get an app on Appstore and Google play.
 
-Heavily inspired by /stolen from (caroaguilar)[https://github.com/caroaguilar/NavigationDrawerExample]
+``
+npm install -- g rnpm
+npm install --save react-native-vector-icons
+rnpm link react-native-vector-icons
+``

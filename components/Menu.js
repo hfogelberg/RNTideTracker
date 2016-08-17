@@ -17,7 +17,7 @@ class Menu extends Component {
 
     componentDidMount() {
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(['First Page', 'Second Page', 'Third Page'])
+            dataSource: this.state.dataSource.cloneWithRows(['Tides', 'First Page', 'Second Page', 'Third Page'])
         });
     }
 

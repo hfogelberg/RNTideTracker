@@ -1,4 +1,4 @@
-rootProject.name = 'NavigationDrawerExample'
+rootProject.name = 'RNTideTracker'
 
 include ':app'
 include ':react-native-vector-icons'
