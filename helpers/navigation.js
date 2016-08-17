@@ -7,17 +7,17 @@ module.exports = function (scene) {
           title: 'Tides',
           id: 'Tides'
         },
-        'First Page': {
-            title: 'First Page',
-            id: 'FirstPage'
+        'Favorites': {
+            title: 'Favorites',
+            id: 'Favorites'
         },
-        'Second Page': {
-            title: 'Second Page',
-            id: 'SecondPage'
+        'Search': {
+            title: 'Search',
+            id: 'Search'
         },
-        'Third Page': {
-          title: 'Third Page',
-          id: 'Third Page'
+        'About': {
+          title: 'About',
+          id: 'About'
         }
     }
 

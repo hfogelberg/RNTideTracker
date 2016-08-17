@@ -9,9 +9,9 @@ import navigationHelper from '../helpers/navigation';
 import styles from '../styles/root';
 import Menu from './Menu';
 import Tides from './Tides';
-import FirstPage from './FirstPage';
-import SecondPage from './SecondPage';
-import ThirdPage from './ThirdPage';
+import Favorites from './Favorites';
+import Search from './Search';
+import About from './About';
 
 let _emitter = new EventEmitter();
 
@@ -74,12 +74,12 @@ class App extends Component {
         switch (route.id) {
           case 'Tides':
             return (<Tides navigator={navigator} />);
-          case 'FirstPage':
-            return (<FirstPage navigator={navigator} />);
-          case 'SecondPage':
-            return (<SecondPage navigator={navigator} />);
-          case 'ThirdPage':
-            return (<ThirdPage navigator={navigator} />);
+          case 'Favorites':
+            return (<Favorites navigator={navigator} />);
+          case 'Search':
+            return (<Search navigator={navigator}/>);
+          case 'About':
+            return (<About navigator={navigator} />);
         }
     }
 }

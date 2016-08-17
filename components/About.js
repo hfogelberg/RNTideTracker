@@ -7,16 +7,16 @@ import {
 } from 'react-native';
 import styles from '../styles/root';
 
-class FirstPage extends Component {
+class About extends Component {
   render() {
     return (
       <View style = {styles.container}>
         <Text style={styles.text}>
-          First Page
+          About Page
         </Text>
       </View>
     )
   }
 }
 
-module.exports = FirstPage;
+module.exports = About;

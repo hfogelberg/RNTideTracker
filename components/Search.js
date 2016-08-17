@@ -7,16 +7,16 @@ import {
 } from 'react-native';
 import styles from '../styles/root';
 
-class ThirdPage extends Component {
+class Search extends Component {
   render() {
     return (
-      <View style = {styles.thirdPagecontainer}>
+      <View style = {styles.container}>
         <Text style={styles.text}>
-          Third Page
+          Search Page
         </Text>
       </View>
     )
   }
 }
 
-module.exports = ThirdPage;
+module.exports = Search;
