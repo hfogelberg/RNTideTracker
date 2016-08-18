@@ -15,7 +15,7 @@ const Tides = React.createClass({
   getInitialState: function() {
     return {
       extremes: [],
-      location: 'Unknown',
+      location: '',
       locationName: 'Tidetracker',
       lat: 0,
       lon: 0
@@ -25,7 +25,7 @@ const Tides = React.createClass({
   componentDidMount: function() {
     console.log('componentDidMount', this.props);
 
-    if (this.props != null) {
+    if (this.props.lat != null) {
       console.log('Has searched');
 
       const lat = this.props.lat;
@@ -42,13 +42,15 @@ const Tides = React.createClass({
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const coords = position.coords;
-          const lon = coords.longitude;
-          const lat = coords.latitude;
-          const location = 'Lat: ' + lat + ', lon: ' + lon;
+          if (coords != null) {
+            const lon = coords.longitude;
+            const lat = coords.latitude;
+            const location = 'Lat: ' + lat + ', lon: ' + lon;
 
-          this.setState({lon});
-          this.setState({lat});
-          this.setState({location});
+            this.setState({lon});
+            this.setState({lat});
+            this.setState({location});
+          }
         },
         (error) => alert(error.message),
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -65,12 +67,11 @@ const Tides = React.createClass({
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.results.length > 0){
-          console.log(responseJson.results);
           const address = responseJson.results[0].address_components
-          console.log('Address: ' + address);
           locationName = `${address[2].short_name}, ${address[5].short_name}`;
-          console.log(locationName);
-          this.setState({locationName});
+          if (locationName != null){
+            this.setState({locationName});
+          }
         }
       })
       .catch((error) => {
@@ -79,22 +80,22 @@ const Tides = React.createClass({
   },
 
   getExtremes: function() {
-    console.log('getExtremes');
+    // Don't load data for the North pole!
+    // if ((this.state.lat != 0) && (this.state.lon != 0)) {
+      const url = `https://www.worldtides.info/api?extremes&lat=${this.state.lat}&lon=${this.state.lon}&key=${TIDE_API_KEY}`
+      console.log(url);
 
-    const url = `https://www.worldtides.info/api?extremes&lat=${this.state.lat}&lon=${this.state.lon}&key=${TIDE_API_KEY}`
-    console.log(url);
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        const extremes = responseJson.extremes;
-
-        this.setState({extremes});
-        this.reverseGeocode();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      fetch(url)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          const extremes = responseJson.extremes;
+          this.setState({extremes});
+          this.reverseGeocode();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    // }
   },
   iterateTides: function() {
     if (this.state.extremes.length == 0) {
@@ -106,20 +107,16 @@ const Tides = React.createClass({
     } else {
       return this.state.extremes.map((tide) => {
         const roundedHeight = tide.height.toFixed(2);
-        const formatedDate = Moment(tide.date).format('ddd hh:mm');
+        const formatedDate = Moment(tide.date).format('ddd HH:mm');
         return (
           <View key={tide.dt} style={styles.tideItem}>
-            <Text style={styles.type}>{tide.type}</Text>
-            <Text style={styles.height}>{roundedHeight}</Text>
-            <Text style={styles.date}>{formatedDate}</Text>
-            </View>
-          )
+            <Text style={styles.tideType}>{tide.type}</Text>
+            <Text style={styles.tideHeight}>{roundedHeight}</Text>
+            <Text style={styles.tideDate}>{formatedDate}</Text>
+          </View>
+        )
       });
     }
-  },
-
-  onSearchPress: function() {
-    console.log('Search tapped');
   },
 
   render() {

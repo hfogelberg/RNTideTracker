@@ -44,10 +44,7 @@ class App extends Component {
                 openDrawerOffset={0.2}
                 panCloseMask={0.2}
                 closedDrawerOffset={-3}
-                styles={{
-                    drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},
-                    main: {paddingLeft: 3}
-                }}
+                styles= {styles.navbar}
                 tweenHandler={(ratio) => ({
                     main: { opacity:(2-ratio)/2 }
                 })}>
@@ -56,7 +53,7 @@ class App extends Component {
                     configureScene={(route) => Navigator.SceneConfigs.FloatFromLeft}
                     initialRoute={{
                         id: 'Tides',
-                        title: 'Tides',
+                        // title: 'Tides',
                         index: 0
                     }}
                     renderScene={(route, navigator) => this._renderScene(route, navigator)}
@@ -72,9 +69,9 @@ class App extends Component {
 
     _renderScene(route, navigator) {
         switch (route.id) {
-          case 'Tides':
-            return (
-              <Tides navigator={navigator} {...route.passProps}/>);
+        case 'Tides':
+          return (
+            <Tides navigator={navigator} {...route.passProps}/>);
           case 'Favorites':
             return (<Favorites navigator={navigator} />);
           case 'Search':
@@ -91,7 +88,7 @@ const NavigationBarRouteMapper = {
           <TouchableOpacity
               style={styles.navBarLeftButton}
               onPress={() => {_emitter.emit('openMenu')}}>
-              <Icon name='menu' size={25} color={'white'} />
+              <Icon name='menu' size={32} color={'black'} />
           </TouchableOpacity>
       )
     },
