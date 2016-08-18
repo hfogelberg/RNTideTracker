@@ -21,21 +21,39 @@ const Tides = React.createClass({
       lon: 0
     };
   },
-  componentDidMount: function() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const coords = position.coords;
-        const lon = coords.longitude;
-        const lat = coords.latitude;
-        const location = 'Lat: ' + lat + ', lon: ' + lon;
 
-        this.setState({lon});
-        this.setState({lat});
-        this.setState({location});
-      },
-      (error) => alert(error.message),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
+  componentDidMount: function() {
+    console.log('componentDidMount', this.props);
+
+    if (this.props != null) {
+      console.log('Has searched');
+
+      const lat = this.props.lat;
+      const lon = this.props.lon;
+      const location = 'Lat: ' + this.props.lat + ', lon: ' + this.props.lon;
+      const locationName = this.props.city + ', ' + this.props.country;
+
+      this.setState({lon});
+      this.setState({lat});
+      this.setState({location});
+      this.setState({locationName});
+
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const coords = position.coords;
+          const lon = coords.longitude;
+          const lat = coords.latitude;
+          const location = 'Lat: ' + lat + ', lon: ' + lon;
+
+          this.setState({lon});
+          this.setState({lat});
+          this.setState({location});
+        },
+        (error) => alert(error.message),
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      );
+    }
 
     this.getExtremes();
   },
@@ -89,11 +107,13 @@ const Tides = React.createClass({
       return this.state.extremes.map((tide) => {
         const roundedHeight = tide.height.toFixed(2);
         const formatedDate = Moment(tide.date).format('ddd hh:mm');
-        return <View key={tide.dt} style={styles.tideItem}>
-          <Text style={styles.type}>{tide.type}</Text>
-          <Text style={styles.height}>{roundedHeight}</Text>
-          <Text style={styles.date}>{formatedDate}</Text>
-        </View>
+        return (
+          <View key={tide.dt} style={styles.tideItem}>
+            <Text style={styles.type}>{tide.type}</Text>
+            <Text style={styles.height}>{roundedHeight}</Text>
+            <Text style={styles.date}>{formatedDate}</Text>
+            </View>
+          )
       });
     }
   },
@@ -112,13 +132,6 @@ const Tides = React.createClass({
           <Text style={styles.locationText}>
             {this.state.location}
           </Text>
-        </View>
-        <View style={styles.searchbar}>
-          <TouchableHighlight
-            style={styles.searchButton}
-            onPress={this.onSearchPress}>
-            <Text>Search</Text>
-          </TouchableHighlight>
         </View>
         <View style={styles.body}>
           { this.iterateTides() }

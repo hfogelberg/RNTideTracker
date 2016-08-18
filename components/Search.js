@@ -22,7 +22,6 @@ class Search extends Component {
           onPress={(data, details = null) => {
             var placeId =  data['place_id'];
 
-            // Get coords formlocation
             let url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=${PLACES_API_KEY}`;
             fetch(url)
               .then((response) => response.json())
@@ -31,13 +30,19 @@ class Search extends Component {
                   var lat = place.geometry.location.lat;
                   var lon = place.geometry.location.lng;
 
-                  console.log('Coords: ' + lat +', ' + lon);
-
                   var address = place.address_components;
                   var city = address[0].short_name;
                   var country = address[5].short_name;
 
-                  console.log('Address: ' + city + ', ' + country);
+                  this.props.navigator.push({
+                   id: 'Tides',
+                   passProps: {
+                     lat: lat,
+                     lon: lon,
+                     city: city,
+                     country: country
+                   }
+                 });
 
               })
               .catch((error) => {
