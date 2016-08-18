@@ -91,5 +91,13 @@ export default StyleSheet.create({
     placesSearch: {
       flex: 1,
       marginTop: 70
+    },
+    about: {
+      flex: 1,
+      marginTop: 70,
+      marginRight: 10,
+      marginLeft: 10,
+      justifyContent: 'center',
+      alignItems: 'center'
     }
 });
