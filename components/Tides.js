@@ -7,7 +7,7 @@ import {
   Navigator
 } from 'react-native';
 import styles from '../styles/root';
-import {GMAPS_API_KEY, TIDE_API_KEY} from '../config/settings.js';
+import {PLACES_API_KEY, TIDE_API_KEY} from '../config/settings.js';
 import Moment from 'moment';
 
 const Tides = React.createClass({
@@ -41,7 +41,7 @@ const Tides = React.createClass({
   },
 
   reverseGeocode: function() {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lon}&key=${GMAPS_API_KEY}`;
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`;
 
     fetch(url)
       .then((response) => response.json())

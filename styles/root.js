@@ -86,5 +86,9 @@ export default StyleSheet.create({
     },
     loadingText: {
       fontSize: 30
+    },
+    placesSearch: {
+      flex: 1,
+      marginTop: 70
     }
 });
