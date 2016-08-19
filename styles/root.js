@@ -96,8 +96,7 @@ export default StyleSheet.create({
   },
   refreshContainer: {
     flex: 1,
-    alignItems: 'flex-end',
-    backgroundColor: 'orange'
+    alignItems: 'flex-end'
   },
   placesSearch: {
     flex: 1,

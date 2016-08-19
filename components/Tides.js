@@ -85,17 +85,24 @@ const Tides = React.createClass({
     });
 
     console.log('DB path: ', realm.path);
-
-    realm.write(() => {
-      realm.create('Locations', {
-        name: this.state.locationName,
-        city: this.state.city,
-        country: this.state.country,
-        lat: this.state.lat,
-        lon: this.state.lon
-      })
-    });
-
+    console.log('Searching for locations with name ' + this.state.locationName);
+    let locations = realm.objects('Locations').filtered('name=$0', this.state.locationName);
+    console.log('Found locations: ' + locations);
+    console.log(locations.length);
+    if (locations.length == 0){
+      console.log('Saving new location');
+      realm.write(() => {
+        realm.create('Locations', {
+          name: this.state.locationName,
+          city: this.state.city,
+          country: this.state.country,
+          lat: this.state.lat,
+          lon: this.state.lon
+        })
+      });
+    } else {
+      console.log('Location already in DB');
+    }
   },
 
   reverseGeocode: function() {
@@ -107,13 +114,20 @@ const Tides = React.createClass({
         if (responseJson.results.length > 0){
           const address = responseJson.results[0].address_components
           locationName = `${address[2].short_name}, ${address[5].short_name}`;
+
           if (locationName != null){
+            console.log('Setting state locationName: ' + locationName);
             this.setState({
-              locationName,
+              locationName: locationName,
               city: address[2].short_name,
               country: address[5].short_name
             },
-              function() {this.savePosition()});
+              function(){
+                console.log('State is now: ' + this.state.locationName);
+                console.log('Calling savePosition');
+                this.savePosition()
+              }
+            );
           }
         }
       })

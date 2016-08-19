@@ -10,7 +10,6 @@ $ npm install --save react-native-vector-icons
 $ rnpm link react-native-vector-icons
 ````
 ##To Do
-1. Save favorites
-2. Edit favorites  
-3. Add icons to menu Drawer
-4. Colors and styling 
+1. Edit favorites  
+2. Add icons to menu Drawer
+3. Colors and styling 
