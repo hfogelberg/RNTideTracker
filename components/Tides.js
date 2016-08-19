@@ -9,6 +9,7 @@ import {
 import styles from '../styles/root';
 import {PLACES_API_KEY, TIDE_API_KEY} from '../config/settings.js';
 import Moment from 'moment';
+import Realm from 'realm';
 
 const Tides = React.createClass({
 
@@ -57,7 +58,32 @@ const Tides = React.createClass({
       );
     }
 
+    this.savePosition();
     this.getExtremes();
+  },
+
+  savePosition: function() {
+    console.log('Save position');
+    console.log('DB path: ', db.path)
+
+    let realm = new Realm({
+      schema: [{
+        name: 'Locations',
+        properties: {
+          name: 'string',
+          lat: 'float',
+          lon: 'float'
+        }}]
+    });
+
+    realm.write(() => {
+      realm.create('Locations', {
+        name: this.state.locationName,
+        lat: this.state.lat,
+        lon: this.state.lon
+      })
+    });
+
   },
 
   reverseGeocode: function() {
