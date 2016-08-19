@@ -16,7 +16,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const Tides = React.createClass({
 
   getInitialState: function() {
-    console.log('getInitialState');
     return {
       extremes: [],
       location: '',
@@ -29,10 +28,8 @@ const Tides = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log('componentDidMount', this.props);
 
     if (this.props.lat != null) {
-      console.log('Has searched');
       this.setState({
         lon: this.props.lon,
         lat: this.props.lat,
@@ -50,11 +47,9 @@ const Tides = React.createClass({
   },
 
   refreshLocation: function() {
-    console.log('Refresh location');
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const coords = position.coords;
-        console.log('Coords: ' + coords.latitude + ', ' + coords.longitude);
         if (coords != null) {
           this.setState({
             lon: coords.longitude,
@@ -84,13 +79,8 @@ const Tides = React.createClass({
         }}]
     });
 
-    console.log('DB path: ', realm.path);
-    console.log('Searching for locations with name ' + this.state.locationName);
     let locations = realm.objects('Locations').filtered('name=$0', this.state.locationName);
-    console.log('Found locations: ' + locations);
-    console.log(locations.length);
     if (locations.length == 0){
-      console.log('Saving new location');
       realm.write(() => {
         realm.create('Locations', {
           name: this.state.locationName,
@@ -100,8 +90,6 @@ const Tides = React.createClass({
           lon: this.state.lon
         })
       });
-    } else {
-      console.log('Location already in DB');
     }
   },
 
@@ -116,15 +104,12 @@ const Tides = React.createClass({
           locationName = `${address[2].short_name}, ${address[5].short_name}`;
 
           if (locationName != null){
-            console.log('Setting state locationName: ' + locationName);
             this.setState({
               locationName: locationName,
               city: address[2].short_name,
               country: address[5].short_name
             },
               function(){
-                console.log('State is now: ' + this.state.locationName);
-                console.log('Calling savePosition');
                 this.savePosition()
               }
             );
@@ -138,9 +123,8 @@ const Tides = React.createClass({
 
   getExtremes: function() {
     // Don't load data for the North pole!
-    // if ((this.state.lat != 0) && (this.state.lon != 0)) {
+    if ((this.state.lat != 0) && (this.state.lon != 0)) {
       const url = `https://www.worldtides.info/api?extremes&lat=${this.state.lat}&lon=${this.state.lon}&key=${TIDE_API_KEY}`
-      console.log(url);
 
       fetch(url)
         .then((response) => response.json())
@@ -152,7 +136,7 @@ const Tides = React.createClass({
       .catch((error) => {
         console.error(error);
       });
-    // }
+    }
   },
   iterateTides: function() {
     if (this.state.extremes.length == 0) {

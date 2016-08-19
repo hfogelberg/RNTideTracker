@@ -16,7 +16,6 @@ class Favorites extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
     let realm = new Realm({
       schema: [{
         name: 'Locations',
@@ -42,7 +41,6 @@ class Favorites extends Component {
   }
 
   onItemPress(favorite) {
-    console.log(favorite.name);
     this.props.navigator.push({
      id: 'Tides',
      passProps: {
