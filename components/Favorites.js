@@ -3,19 +3,71 @@ import {
   StyleSheet,
   View,
   Text,
+  TouchableOpacity,
   Navigator
 } from 'react-native';
 import styles from '../styles/root';
+import Realm from 'realm';
 
 class Favorites extends Component {
+  constructor(props) {
+      super(props);
+      this.state = { favorites: [] };
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+    let realm = new Realm({
+      schema: [{
+        name: 'Locations',
+        properties: {
+          name: 'string',
+          city: 'string',
+          country: 'string',
+          lat: 'float',
+          lon: 'float'
+        }}]
+    });
+
+    let favorites = realm.objects('Locations');
+    this.setState({favorites});
+  }
+
   render() {
     return (
       <View style = {styles.container}>
-        <Text style={styles.text}>
-          Favorites
-        </Text>
+        {this.iterateFavorites()}
       </View>
     )
+  }
+
+  onItemPress(favorite) {
+    console.log(favorite.name);
+    this.props.navigator.push({
+     id: 'Tides',
+     passProps: {
+       lat: favorite.lat,
+       lon: favorite.lon,
+       city: favorite.city,
+       country: favorite.country
+     }
+   });
+  }
+
+  iterateFavorites() {
+    if (this.state.favorites.length > 0) {
+      return this.state.favorites.map((favorite) => {
+        return (
+          <View
+            key={favorite.name}
+            style={styles.favoriteContainer}>
+            <TouchableOpacity onPress={() => this.onItemPress(favorite)}>
+              <Text style={styles.favorite}>{favorite.name}</Text>
+            </TouchableOpacity>
+            </View>
+          )
+      });
+    }
   }
 }
 

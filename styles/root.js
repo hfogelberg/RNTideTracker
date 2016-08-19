@@ -94,6 +94,11 @@ export default StyleSheet.create({
   loadingText: {
     fontSize: 30
   },
+  refreshContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+    backgroundColor: 'orange'
+  },
   placesSearch: {
     flex: 1,
     marginTop: 70
@@ -105,5 +110,15 @@ export default StyleSheet.create({
     marginLeft: 10,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  favoriteContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginVertical: 10
+  },
+  favorite: {
+    justifyContent: 'flex-start',
+    fontSize: 22,
+    fontWeight: 'bold'
   }
 });

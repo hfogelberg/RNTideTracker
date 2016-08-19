@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   View,
   Navigator
 } from 'react-native';
@@ -10,14 +11,18 @@ import styles from '../styles/root';
 import {PLACES_API_KEY, TIDE_API_KEY} from '../config/settings.js';
 import Moment from 'moment';
 import Realm from 'realm';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tides = React.createClass({
 
   getInitialState: function() {
+    console.log('getInitialState');
     return {
       extremes: [],
       location: '',
       locationName: 'Tidetracker',
+      city: '',
+      country: '',
       lat: 0,
       lon: 0
     };
@@ -28,57 +33,64 @@ const Tides = React.createClass({
 
     if (this.props.lat != null) {
       console.log('Has searched');
-
-      const lat = this.props.lat;
-      const lon = this.props.lon;
-      const location = 'Lat: ' + this.props.lat + ', lon: ' + this.props.lon;
-      const locationName = this.props.city + ', ' + this.props.country;
-
-      this.setState({lon});
-      this.setState({lat});
-      this.setState({location});
-      this.setState({locationName});
-
+      this.setState({
+        lon: this.props.lon,
+        lat: this.props.lat,
+        city: this.props.city,
+        country: this.props.country,
+        location: 'Lat: ' + this.props.lat + ', lon: ' + this.props.lon,
+        locationName: this.props.city + ', ' + this.props.country
+      }, function() {
+        this.savePosition();
+        this.getExtremes();
+      });
     } else {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const coords = position.coords;
-          if (coords != null) {
-            const lon = coords.longitude;
-            const lat = coords.latitude;
-            const location = 'Lat: ' + lat + ', lon: ' + lon;
-
-            this.setState({lon});
-            this.setState({lat});
-            this.setState({location});
-          }
-        },
-        (error) => alert(error.message),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-      );
+      this.refreshLocation();
     }
+  },
 
-    this.savePosition();
-    this.getExtremes();
+  refreshLocation: function() {
+    console.log('Refresh location');
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const coords = position.coords;
+        console.log('Coords: ' + coords.latitude + ', ' + coords.longitude);
+        if (coords != null) {
+          this.setState({
+            lon: coords.longitude,
+            lat: coords.latitude,
+            location: 'Lat: ' + coords.latitude + ', Lon: ' + coords.longitude
+          }, function() {
+            this.getExtremes();
+            this.reverseGeocode();
+          });
+        }
+      },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
   },
 
   savePosition: function() {
-    console.log('Save position');
-    console.log('DB path: ', db.path)
-
     let realm = new Realm({
       schema: [{
         name: 'Locations',
         properties: {
           name: 'string',
+          city: 'string',
+          country: 'string',
           lat: 'float',
           lon: 'float'
         }}]
     });
 
+    console.log('DB path: ', realm.path);
+
     realm.write(() => {
       realm.create('Locations', {
         name: this.state.locationName,
+        city: this.state.city,
+        country: this.state.country,
         lat: this.state.lat,
         lon: this.state.lon
       })
@@ -96,7 +108,12 @@ const Tides = React.createClass({
           const address = responseJson.results[0].address_components
           locationName = `${address[2].short_name}, ${address[5].short_name}`;
           if (locationName != null){
-            this.setState({locationName});
+            this.setState({
+              locationName,
+              city: address[2].short_name,
+              country: address[5].short_name
+            },
+              function() {this.savePosition()});
           }
         }
       })
@@ -158,6 +175,13 @@ const Tides = React.createClass({
         </View>
         <View style={styles.body}>
           { this.iterateTides() }
+        </View>
+        <View
+          style={styles.refreshContainer}>
+          <TouchableOpacity
+            onPress={()=>this.refreshLocation()} >
+              <Icon name='near-me' size={32} color={'black'} />
+          </TouchableOpacity>
         </View>
       </View>
     );

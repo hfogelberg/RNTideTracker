@@ -94,7 +94,7 @@ const NavigationBarRouteMapper = {
     },
 
     RightButton(route, navigator, index, navState) {
-        return null
+      return null;
     },
 
     Title(route, navigator, index, navState) {
