@@ -23,6 +23,7 @@ class Search extends Component {
             var placeId =  data['place_id'];
 
             let url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=${PLACES_API_KEY}`;
+            console.log(url);
             fetch(url)
               .then((response) => response.json())
               .then((responseJson) => {
@@ -32,7 +33,7 @@ class Search extends Component {
 
                   var address = place.address_components;
                   var city = address[0].short_name;
-                  var country = address[5].short_name;
+                  var country = address[3].short_name;
 
                   this.props.navigator.push({
                    id: 'Tides',

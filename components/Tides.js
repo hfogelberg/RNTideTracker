@@ -101,7 +101,7 @@ const Tides = React.createClass({
       .then((responseJson) => {
         if (responseJson.results.length > 0){
           const address = responseJson.results[0].address_components
-          locationName = `${address[2].short_name}, ${address[5].short_name}`;
+          locationName = `${address[0].short_name}, ${address[3].short_name}`;
 
           if (locationName != null){
             this.setState({
