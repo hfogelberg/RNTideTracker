@@ -19,24 +19,19 @@ const Tides = React.createClass({
     return {
       extremes: [],
       location: '',
-      locationName: 'Tidetracker',
-      city: '',
-      country: '',
+      name: 'Tidetracker',
       lat: 0,
       lon: 0
     };
   },
 
   componentDidMount: function() {
-
     if (this.props.lat != null) {
       this.setState({
         lon: this.props.lon,
         lat: this.props.lat,
-        city: this.props.city,
-        country: this.props.country,
-        location: 'Lat: ' + this.props.lat + ', lon: ' + this.props.lon,
-        locationName: this.props.city + ', ' + this.props.country
+        name: this.props.name,
+        location: 'Lat: ' + this.props.lat + ', lon: ' + this.props.lon
       }, function() {
         this.savePosition();
         this.getExtremes();
@@ -72,20 +67,16 @@ const Tides = React.createClass({
         name: 'Locations',
         properties: {
           name: 'string',
-          city: 'string',
-          country: 'string',
           lat: 'float',
           lon: 'float'
         }}]
     });
 
-    let locations = realm.objects('Locations').filtered('name=$0', this.state.locationName);
+    let locations = realm.objects('Locations').filtered('name=$0', this.state.name);
     if (locations.length == 0){
       realm.write(() => {
         realm.create('Locations', {
-          name: this.state.locationName,
-          city: this.state.city,
-          country: this.state.country,
+          name: this.state.name,
           lat: this.state.lat,
           lon: this.state.lon
         })
@@ -95,28 +86,23 @@ const Tides = React.createClass({
 
   reverseGeocode: function() {
     let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`;
-
+    console.log('reverseGeocode');
     fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.results.length > 0){
-          const address = responseJson.results[0].address_components
-          locationName = `${address[0].short_name}, ${address[3].short_name}`;
-
-          if (locationName != null){
-            this.setState({
-              locationName: locationName,
-              city: address[2].short_name,
-              country: address[5].short_name
-            },
-              function(){
-                this.savePosition()
-              }
-            );
-          }
+          console.log(responseJson.results[0]);
+          this.setState({
+            name: responseJson.results[0].name
+          },
+            function(){
+              this.savePosition()
+            }
+          );
         }
       })
       .catch((error) => {
+        console.log('Boom!');
         console.error(error);
       });
   },
@@ -165,7 +151,7 @@ const Tides = React.createClass({
       <View style={styles.container}>
         <View style={styles.titleView}>
           <Text style={styles.title}>
-            {this.state.locationName}
+            {this.state.name}
           </Text>
           <Text style={styles.locationText}>
             {this.state.location}

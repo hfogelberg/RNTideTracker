@@ -16,15 +16,15 @@ class Menu extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(['Tides', 'Search', 'Favorites', 'About'])
-        });
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(['Tides', 'Search', 'Favorites', 'About'])
+      });
     }
 
     _renderMenuItem(item) {
-        return(
-            <Button style={styles.menuItem} onPress={()=> this._onItemSelect(item)}>{item}</Button>
-        );
+      return(
+        <Button style={styles.menuItem} onPress={()=> this._onItemSelect(item)}>{item}</Button>
+      );
     }
 
     _onItemSelect(item) {
@@ -33,11 +33,10 @@ class Menu extends Component {
 
     render() {
         return (
-            <ListView
-                style={styles.container}
-                dataSource={this.state.dataSource}
-                renderRow={(item) => this._renderMenuItem(item)}
-            />
+          <ListView
+            style={styles.container}
+            dataSource={this.state.dataSource}
+            renderRow={(item) => this._renderMenuItem(item)} />
         );
     }
 }

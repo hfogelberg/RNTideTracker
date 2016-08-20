@@ -20,7 +20,7 @@ class App extends Component {
       var self = this;
 
       // Don't show warnings in the simulator
-      console.disableYellowBox = true;
+      // console.disableYellowBox = true;
 
       _emitter.addListener('openMenu', () => {
           self._drawer.open();
@@ -32,52 +32,52 @@ class App extends Component {
     }
 
     render() {
-        return (
-            <Drawer
-                ref={(ref) => this._drawer = ref}
-                type="overlay"
-                content={<Menu navigate={(route) => {
-                    this._navigator.push(navigationHelper(route));
-                    this._drawer.close()
-                }}/>}
-                tapToClose={true}
-                openDrawerOffset={0.2}
-                panCloseMask={0.2}
-                closedDrawerOffset={-3}
-                styles= {styles.navbar}
-                tweenHandler={(ratio) => ({
-                    main: { opacity:(2-ratio)/2 }
-                })}>
-                <Navigator
-                    ref={(ref) => this._navigator = ref}
-                    configureScene={(route) => Navigator.SceneConfigs.FloatFromLeft}
-                    initialRoute={{
-                        id: 'Tides',
-                        // title: 'Tides',
-                        index: 0
-                    }}
-                    renderScene={(route, navigator) => this._renderScene(route, navigator)}
-                    navigationBar={
-                        <Navigator.NavigationBar
-                            style={styles.navBar}
-                            routeMapper={NavigationBarRouteMapper} />
-                    }
-                />
-            </Drawer>
-        );
+      return (
+        <Drawer
+            ref={(ref) => this._drawer = ref}
+            type="overlay"
+            content={<Menu navigate={(route) => {
+                this._navigator.push(navigationHelper(route));
+                this._drawer.close()
+            }}/>}
+            tapToClose={true}
+            openDrawerOffset={0.2}
+            panCloseMask={0.2}
+            closedDrawerOffset={-3}
+            styles= {styles.navbar}
+            tweenHandler={(ratio) => ({
+                main: { opacity:(2-ratio)/2 }
+            })}>
+            <Navigator
+                ref={(ref) => this._navigator = ref}
+                configureScene={(route) => Navigator.SceneConfigs.FloatFromLeft}
+                initialRoute={{
+                    id: 'Tides',
+                    title: 'Tides',
+                    index: 0
+                }}
+                renderScene={(route, navigator) => this._renderScene(route, navigator)}
+                navigationBar={
+                    <Navigator.NavigationBar
+                        style={styles.navBar}
+                        routeMapper={NavigationBarRouteMapper} />
+                }
+            />
+        </Drawer>
+      );
     }
 
     _renderScene(route, navigator) {
         switch (route.id) {
-        case 'Tides':
-          return (
-            <Tides navigator={navigator} {...route.passProps}/>);
-          case 'Favorites':
-            return (<Favorites navigator={navigator} />);
-          case 'Search':
-            return (<Search navigator={navigator} {...route.passProps} />);
-          case 'About':
-            return (<About navigator={navigator} />);
+          case 'Tides':
+            return (
+              <Tides navigator={navigator} {...route.passProps} />);
+            case 'Favorites':
+              return (<Favorites navigator={navigator} {...route.passProps} />);
+            case 'Search':
+              return (<Search navigator={navigator} {...route.passProps} />);
+            case 'About':
+              return (<About navigator={navigator} />);
         }
     }
 }
@@ -85,11 +85,11 @@ class App extends Component {
 const NavigationBarRouteMapper = {
     LeftButton(route, navigator, index, navState) {
       return (
-          <TouchableOpacity
-              style={styles.navBarLeftButton}
-              onPress={() => {_emitter.emit('openMenu')}}>
-              <Icon name='menu' size={32} color={'black'} />
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navBarLeftButton}
+          onPress={() => {_emitter.emit('openMenu')}}>
+          <Icon name='menu' size={32} color={'black'} />
+        </TouchableOpacity>
       )
     },
 
@@ -98,11 +98,11 @@ const NavigationBarRouteMapper = {
     },
 
     Title(route, navigator, index, navState) {
-        return (
-            <Text style={[styles.navBarText, styles.navBarTitleText]}>
-                {route.title}
-            </Text>
-        )
+      return (
+        <Text style={[styles.navBarText, styles.navBarTitleText]}>
+          {route.title}
+        </Text>
+      )
     }
 }
 

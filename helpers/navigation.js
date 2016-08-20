@@ -4,16 +4,16 @@ import _ from 'underscore';
 module.exports = function (scene) {
     var componentMap = {
         'Tides': {
-          // title: 'Tides',
+          title: 'Tides',
           id: 'Tides'
         },
         'Favorites': {
-            title: 'Favorites',
-            id: 'Favorites'
+          title: 'Favorites',
+          id: 'Favorites'
         },
         'Search': {
-            title: 'Search',
-            id: 'Search'
+          title: 'Search',
+          id: 'Search'
         },
         'About': {
           title: 'About',

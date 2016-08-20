@@ -21,8 +21,6 @@ class Favorites extends Component {
         name: 'Locations',
         properties: {
           name: 'string',
-          city: 'string',
-          country: 'string',
           lat: 'float',
           lon: 'float'
         }}]
@@ -46,8 +44,7 @@ class Favorites extends Component {
      passProps: {
        lat: favorite.lat,
        lon: favorite.lon,
-       city: favorite.city,
-       country: favorite.country
+       name: favorite.name
      }
    });
   }

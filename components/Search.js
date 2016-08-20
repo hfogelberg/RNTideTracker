@@ -28,20 +28,17 @@ class Search extends Component {
               .then((response) => response.json())
               .then((responseJson) => {
                   var place = responseJson.result;
+                  console.log(place.name);
                   var lat = place.geometry.location.lat;
                   var lon = place.geometry.location.lng;
-
-                  var address = place.address_components;
-                  var city = address[0].short_name;
-                  var country = address[3].short_name;
+                  var name = place.name;
 
                   this.props.navigator.push({
                    id: 'Tides',
                    passProps: {
                      lat: lat,
                      lon: lon,
-                     city: city,
-                     country: country
+                     name: name
                    }
                  });
 
@@ -65,11 +62,8 @@ class Search extends Component {
               color: '#1faadb',
             },
           }}
-
-          nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-
-          filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-
+          nearbyPlacesAPI='GooglePlacesSearch'
+          filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']}
         />
       </View>
     )
