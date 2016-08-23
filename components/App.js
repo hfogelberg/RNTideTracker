@@ -1,9 +1,15 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { DeviceEventEmitter, Navigator, Text, TouchableOpacity, View } from 'react-native';
+import {
+  DeviceEventEmitter,
+  Navigator,
+  Text,
+  TouchableOpacity,
+  View,
+  Image
+} from 'react-native';
 import Drawer from 'react-native-drawer';
-import Icon from 'react-native-vector-icons';
 import { EventEmitter } from 'fbemitter';
 import navigationHelper from '../helpers/navigation';
 import styles from '../styles/styles';
@@ -88,7 +94,7 @@ const NavigationBarRouteMapper = {
         <TouchableOpacity
           style={styles.navBarLeftButton}
           onPress={() => {_emitter.emit('openMenu')}}>
-          <Icon name='menu' size={32} color={'black'} />
+          <Image source={require('../assets/Menu-30.png')}/>
         </TouchableOpacity>
       )
     },

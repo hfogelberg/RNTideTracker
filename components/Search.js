@@ -5,7 +5,7 @@ import {
   Text,
   Navigator
 } from 'react-native';
-import styles from '../styles/root';
+import styles from '../styles/styles';
 import {PLACES_API_KEY} from '../config/settings.js';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import _ from 'underscore';
