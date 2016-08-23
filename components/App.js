@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import { DeviceEventEmitter, Navigator, Text, TouchableOpacity, View } from 'react-native';
 import Drawer from 'react-native-drawer';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons';
 import { EventEmitter } from 'fbemitter';
 import navigationHelper from '../helpers/navigation';
-import styles from '../styles/root';
+import styles from '../styles/styles';
 import Menu from './Menu';
 import Tides from './Tides';
 import Favorites from './Favorites';

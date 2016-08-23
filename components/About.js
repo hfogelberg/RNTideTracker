@@ -5,7 +5,7 @@ import {
   Text,
   Navigator
 } from 'react-native';
-import styles from '../styles/root';
+import styles from '../styles/styles';
 
 class About extends Component {
   render() {

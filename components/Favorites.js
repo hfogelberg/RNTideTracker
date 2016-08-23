@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Navigator
 } from 'react-native';
-import styles from '../styles/root';
+import styles from '../styles/styles';
 import Realm from 'realm';
 
 class Favorites extends Component {
