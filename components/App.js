@@ -59,7 +59,7 @@ class App extends Component {
                 configureScene={(route) => Navigator.SceneConfigs.FloatFromLeft}
                 initialRoute={{
                     id: 'Tides',
-                    title: 'Tides',
+                    title: '',
                     index: 0
                 }}
                 renderScene={(route, navigator) => this._renderScene(route, navigator)}

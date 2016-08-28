@@ -85,15 +85,16 @@ const Tides = React.createClass({
   },
 
   reverseGeocode: function() {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`;
-    console.log('reverseGeocode');
+    // let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`;
+    let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`;
+    console.log('reverseGeocode', url);
     fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.results.length > 0){
-          console.log(responseJson.results[0]);
+          console.log(responseJson);
           this.setState({
-            name: responseJson.results[0].name
+            name: responseJson.results[0].vicinity
           },
             function(){
               this.savePosition()
