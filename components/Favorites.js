@@ -23,7 +23,10 @@ let realm = new Realm({
 class Favorites extends Component {
   constructor(props) {
       super(props);
-      this.state = { favorites: [] };
+      this.state = {
+        favorites: [],
+        editMode: false
+       };
   }
 
   componentDidMount() {
@@ -38,10 +41,25 @@ class Favorites extends Component {
 
   render() {
     return (
-      <View style={styles.favoriteContainer}>
-        {this.iterateFavorites()}
+      <View>
+        <View style = {styles.editContainer}>
+          <TouchableOpacity
+            onPress={()=>{this.toggleEditMode()}}
+            style={styles.pullRightItem}>
+            <Image source={require('../assets/Edit.png')}/>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.favoriteContainer}>
+          {this.iterateFavorites()}
+        </View>
       </View>
     )
+  }
+
+  toggleEditMode() {
+    this.setState({
+      editMode: true
+    })
   }
 
   onItemPress(favorite) {
@@ -65,6 +83,17 @@ class Favorites extends Component {
     this.getFavorites();
   }
 
+
+  renderDeleteIcon() {
+    if(this.state.editMode == true) {
+      return (
+        <TouchableOpacity onPress={() => this.onDeleteItem(favorite)}>
+          <Image source={require('../assets/Delete.png')}/>
+        </TouchableOpacity>
+      );
+    }
+  }
+
   iterateFavorites() {
     if (this.state.favorites.length > 0) {
       return this.state.favorites.map((favorite) => {
@@ -73,9 +102,7 @@ class Favorites extends Component {
             <TouchableOpacity onPress={() => this.onItemPress(favorite)}>
               <Text style={styles.favoriteName}>{favorite.name}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.onDeleteItem(favorite)}>
-              <Image source={require('../assets/Delete.png')}/>
-            </TouchableOpacity>
+            {this.renderDeleteIcon()}
           </View>
         )
       });

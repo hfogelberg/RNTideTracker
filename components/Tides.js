@@ -12,7 +12,6 @@ import styles from '../styles/styles';
 import {PLACES_API_KEY, TIDE_API_KEY} from '../config/settings.js';
 import Moment from 'moment';
 import Realm from 'realm';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tides = React.createClass({
 
@@ -32,7 +31,7 @@ const Tides = React.createClass({
         lon: this.props.lon,
         lat: this.props.lat,
         name: this.props.name,
-        location: 'Lat: ' + this.props.lat + ', lon: ' + this.props.lon
+        location: 'Lat: ' + this.props.lat.toFixed(3) + ', lon: ' + this.props.lon.toFixed(3)
       }, function() {
         this.savePosition();
         this.getExtremes();
@@ -152,11 +151,11 @@ const Tides = React.createClass({
     if (type == 'High') {
       return <Image
                 source={require('../assets/HighTide.png')}
-                style={styles.tideType}/>
+                style={styles.icon}/>
     } else {
       return <Image
                 source={require('../assets/LowTide.png')}
-                style={styles.tideType}/>;
+                style={styles.icon}/>;
     };
   },
 
@@ -175,11 +174,13 @@ const Tides = React.createClass({
           { this.iterateTides() }
         </View>
         <View
-          style={styles.refreshContainer}>
+          style={styles.pullRightContainer}>
           <TouchableOpacity
             onPress={()=>this.refreshLocation()}
-            style = {styles.refreshLocation} >
-              <Icon name='near-me' size={32} color={'black'} />
+            style = {styles.pullRightItem} >
+              <Image
+                source={require('../assets/GPSDevice.png')}
+                style={styles.icon}/>
           </TouchableOpacity>
         </View>
       </View>

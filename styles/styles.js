@@ -94,12 +94,12 @@ export default StyleSheet.create({
   loadingText: {
     fontSize: 30
   },
-  refreshContainer: {
+  pullRightContainer: {
     alignSelf: 'stretch',
     marginRight: 50,
     marginBottom: 50
   },
-  refreshLocation: {
+  pullRightItem: {
     alignItems: 'flex-end'
   },
   placesSearch: {
@@ -112,7 +112,14 @@ export default StyleSheet.create({
     marginRight: 10,
     marginLeft: 10
   },
+  editContainer: {
+    flex: 1,
+    marginTop: 70,
+    marginRight: 20,
+    alignSelf: 'stretch',
+  },
   favoriteContainer: {
+    flex: 7,
     alignItems: 'stretch',
     marginTop: 70,
     marginLeft: 20,
@@ -126,8 +133,14 @@ export default StyleSheet.create({
   favoriteName: {
     fontSize: 18
   },
-  tideType: {
+  icon: {
     height: 40,
     width: 40
+  },
+  refreshLocation: {
+    height: 32,
+    width: 32,
+    color: 'black'
+
   }
 });
