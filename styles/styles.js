@@ -106,18 +106,21 @@ export default StyleSheet.create({
     flex: 1,
     marginTop: 70,
     marginRight: 10,
-    marginLeft: 10,
-    justifyContent: 'center',
-    alignItems: 'center'
+    marginLeft: 10
   },
   favoriteContainer: {
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    marginVertical: 10
+    alignItems: 'stretch',
+    marginTop: 70,
+    marginLeft: 20,
+    marginRight: 20
   },
-  favorite: {
-    justifyContent: 'flex-start',
-    fontSize: 22,
-    fontWeight: 'bold'
+  favoritesListItem: {
+    flex: 1,
+    flexDirection: 'row',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  favoriteName: {
+    fontSize: 18
   }
 });

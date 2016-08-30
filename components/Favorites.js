@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Image,
   TouchableOpacity,
   Navigator
 } from 'react-native';
@@ -32,7 +33,7 @@ class Favorites extends Component {
 
   render() {
     return (
-      <View style = {styles.container}>
+      <View style={styles.favoriteContainer}>
         {this.iterateFavorites()}
       </View>
     )
@@ -53,14 +54,13 @@ class Favorites extends Component {
     if (this.state.favorites.length > 0) {
       return this.state.favorites.map((favorite) => {
         return (
-          <View
-            key={favorite.name}
-            style={styles.favoriteContainer}>
+          <View key={favorite.name} style={styles.favoritesListItem}>
             <TouchableOpacity onPress={() => this.onItemPress(favorite)}>
-              <Text style={styles.favorite}>{favorite.name}</Text>
+              <Text style={styles.favoriteName}>{favorite.name}</Text>
             </TouchableOpacity>
-            </View>
-          )
+            <Image source={require('../assets/Delete.png')}/>
+          </View>
+        )
       });
     }
   }
