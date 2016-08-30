@@ -10,6 +10,16 @@ import {
 import styles from '../styles/styles';
 import Realm from 'realm';
 
+let realm = new Realm({
+  schema: [{
+    name: 'Locations',
+    properties: {
+      name: 'string',
+      lat: 'float',
+      lon: 'float'
+    }}]
+});
+
 class Favorites extends Component {
   constructor(props) {
       super(props);
@@ -17,16 +27,11 @@ class Favorites extends Component {
   }
 
   componentDidMount() {
-    let realm = new Realm({
-      schema: [{
-        name: 'Locations',
-        properties: {
-          name: 'string',
-          lat: 'float',
-          lon: 'float'
-        }}]
-    });
+    this.getFavorites();
+  }
 
+
+  getFavorites() {
     let favorites = realm.objects('Locations');
     this.setState({favorites});
   }
@@ -50,6 +55,16 @@ class Favorites extends Component {
    });
   }
 
+  onDeleteItem(favorite) {
+    console.log('Delete: ' + favorite.name);
+
+    realm.write(() => {
+      realm.delete(favorite);
+    });
+
+    this.getFavorites();
+  }
+
   iterateFavorites() {
     if (this.state.favorites.length > 0) {
       return this.state.favorites.map((favorite) => {
@@ -58,7 +73,9 @@ class Favorites extends Component {
             <TouchableOpacity onPress={() => this.onItemPress(favorite)}>
               <Text style={styles.favoriteName}>{favorite.name}</Text>
             </TouchableOpacity>
-            <Image source={require('../assets/Delete.png')}/>
+            <TouchableOpacity onPress={() => this.onDeleteItem(favorite)}>
+              <Image source={require('../assets/Delete.png')}/>
+            </TouchableOpacity>
           </View>
         )
       });

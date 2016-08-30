@@ -95,7 +95,11 @@ export default StyleSheet.create({
     fontSize: 30
   },
   refreshContainer: {
-    flex: 1,
+    alignSelf: 'stretch',
+    marginRight: 50,
+    marginBottom: 50
+  },
+  refreshLocation: {
     alignItems: 'flex-end'
   },
   placesSearch: {
@@ -116,7 +120,6 @@ export default StyleSheet.create({
   },
   favoritesListItem: {
     flex: 1,
-    flexDirection: 'row',
     flexDirection: 'row',
     justifyContent: 'space-between'
   },

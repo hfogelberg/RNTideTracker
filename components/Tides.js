@@ -85,7 +85,6 @@ const Tides = React.createClass({
   },
 
   reverseGeocode: function() {
-    // let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`;
     let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`;
     console.log('reverseGeocode', url);
     fetch(url)
@@ -164,7 +163,8 @@ const Tides = React.createClass({
         <View
           style={styles.refreshContainer}>
           <TouchableOpacity
-            onPress={()=>this.refreshLocation()} >
+            onPress={()=>this.refreshLocation()}
+            style = {styles.refreshLocation} >
               <Icon name='near-me' size={32} color={'black'} />
           </TouchableOpacity>
         </View>
