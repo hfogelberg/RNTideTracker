@@ -4,6 +4,7 @@ import {
   Text,
   TouchableHighlight,
   TouchableOpacity,
+  Image,
   View,
   Navigator
 } from 'react-native';
@@ -137,13 +138,26 @@ const Tides = React.createClass({
         const formatedDate = Moment(tide.date).format('ddd HH:mm');
         return (
           <View key={tide.dt} style={styles.tideItem}>
-            <Text style={styles.tideType}>{tide.type}</Text>
+            {this.renderIcon(tide.type)}
             <Text style={styles.tideHeight}>{roundedHeight}</Text>
             <Text style={styles.tideDate}>{formatedDate}</Text>
           </View>
         )
       });
     }
+  },
+
+  renderIcon: function(type) {
+    console.log(type);
+    if (type == 'High') {
+      return <Image
+                source={require('../assets/HighTide.png')}
+                style={styles.tideType}/>
+    } else {
+      return <Image
+                source={require('../assets/LowTide.png')}
+                style={styles.tideType}/>;
+    };
   },
 
   render() {

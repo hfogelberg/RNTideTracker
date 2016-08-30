@@ -125,5 +125,9 @@ export default StyleSheet.create({
   },
   favoriteName: {
     fontSize: 18
+  },
+  tideType: {
+    height: 40,
+    width: 40
   }
 });
