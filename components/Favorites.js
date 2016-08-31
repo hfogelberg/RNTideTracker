@@ -41,7 +41,7 @@ class Favorites extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <View style = {styles.editContainer}>
           <TouchableOpacity
             onPress={()=>{this.toggleEditMode()}}

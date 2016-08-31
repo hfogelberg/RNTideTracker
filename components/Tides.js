@@ -147,7 +147,10 @@ const Tides = React.createClass({
     if (this.state.extremes.length == 0) {
       return (
         <View style={styles.loadingView}>
-          <Text style={styles.loadingText} numberOfLines={4}>{this.state.statusText}</Text>
+          <Text style={styles.loadingText}
+                numberOfLines={4}>
+            {this.state.statusText}
+          </Text>
         </View>
       )
     } else {
@@ -183,13 +186,13 @@ const Tides = React.createClass({
       <View style={styles.container}>
         <View style={styles.titleView}>
           <Text style={styles.title}>
-            {this.state.station}
+            {this.state.station.toUpperCase()}
           </Text>
           <Text style={styles.locationText}>
             {this.state.location}
           </Text>
         </View>
-        <View style={styles.body}>
+        <View style={styles.tidesContainer}>
           { this.iterateTides() }
         </View>
         <View

@@ -1,18 +1,18 @@
 import { StyleSheet } from 'react-native';
+import * as colors from '../constants/colors';
 
 export default StyleSheet.create({
   container: {
     // marginTop: 70,
+    backgroundColor: colors.COLOR_LIGHT_BLUE,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    // justifyContent: 'center',
+    // alignItems: 'center'
   },
   navBar: {
-    // backgroundColor: '#BD5026',
     alignItems: 'center'
   },
   navBarText: {
-    // color: 'white',
     fontSize: 16,
     marginVertical: 10,
   },
@@ -55,17 +55,21 @@ export default StyleSheet.create({
     flex: 1
   },
   title: {
-    fontSize: 24
+    fontSize: 32,
+    color: colors.COLOR_ORANGE,
+    fontWeight: '500'
   },
   locationText: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 12
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    fontSize: 12,
+    color: colors.COLOR_ORANGE
   },
-  body: {
+  tidesContainer: {
     flex: 8,
     alignSelf: 'stretch',
-    marginTop: 20,
+    marginLeft: 20,
+    marginTop: 30,
     alignItems: 'stretch'
   },
   tideItem: {
@@ -74,17 +78,20 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center'
   },
-  tideType: {
-    fontSize: 32,
-    fontWeight: 'bold',
-  },
+  // tideType: {
+  //   fontSize: 32,
+  //   fontWeight: 'bold',
+  //   color: colors.COLOR_MENU_TEXT
+  // },
   tideHeight: {
     textAlign: 'left',
     fontSize: 20,
+    color: colors.COLOR_MENU_TEXT
   },
   tideDate: {
     fontSize: 16,
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    color: colors.COLOR_MENU_TEXT
   },
   loadingView: {
     flex: 4,
@@ -93,8 +100,10 @@ export default StyleSheet.create({
   },
   loadingText: {
     fontSize: 30,
-    textAlign: 'center',
-    justifyContent: 'center'
+    fontWeight: 'bold',
+    color: colors.COLOR_ORANGE,
+    // textAlign: 'center',
+    // justifyContent: 'center'
   },
   pullRightContainer: {
     alignSelf: 'stretch',
@@ -115,25 +124,38 @@ export default StyleSheet.create({
     marginLeft: 10
   },
   editContainer: {
-    flex: 1,
+    // flex: 1,
+    height: 40,
     marginTop: 70,
     marginRight: 20,
-    alignSelf: 'stretch',
+    alignSelf: 'stretch'
   },
+  // favoriteContainer: {
+  //   flex: 7,
+  //   // alignItems: 'stretch',
+  //   // justifyContent: 'center',
+  //   // marginTop: 20,
+  //   backgroundColor: 'yellow',
+  //   marginLeft: 20,
+  //   marginRight: 20
+  // },
   favoriteContainer: {
-    flex: 7,
-    alignItems: 'stretch',
-    marginTop: 70,
+    // flex: 10,
+    alignSelf: 'stretch',
     marginLeft: 20,
-    marginRight: 20
+    alignItems: 'stretch'
   },
   favoritesListItem: {
-    flex: 1,
+    // flexDirection: 'row',
+    // flex: 1,
+    // justifyContent: 'space-between'
     flexDirection: 'row',
+    alignItems: 'stretch',
     justifyContent: 'space-between'
   },
   favoriteName: {
-    fontSize: 18
+    fontSize: 22,
+    color: colors.COLOR_MENU_TEXT,
   },
   icon: {
     height: 40,
@@ -142,7 +164,5 @@ export default StyleSheet.create({
   refreshLocation: {
     height: 32,
     width: 32,
-    color: 'black'
-
   }
 });

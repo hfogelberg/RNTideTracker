@@ -104,11 +104,7 @@ const NavigationBarRouteMapper = {
     },
 
     Title(route, navigator, index, navState) {
-      return (
-        <Text style={[styles.navBarText, styles.navBarTitleText]}>
-          {route.title}
-        </Text>
-      )
+      return  null;
     }
 }
 

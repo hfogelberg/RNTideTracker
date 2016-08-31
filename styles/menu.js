@@ -1,12 +1,16 @@
 import { StyleSheet } from 'react-native';
+import * as colors from '../constants/colors';
 
 module.exports = StyleSheet.create({
     container: {
-        backgroundColor: '#FFF',
-        top: 20
+      flex: 1,
+        backgroundColor: colors.COLOR_MENU_BLUE
+    },
+    favoritesList: {
+      top: 40
     },
     menuItem: {
-        color: '#333',
+        color: colors.COLOR_MENU_TEXT,
         padding: 10,
         textAlign: 'left'
     }

@@ -39,7 +39,6 @@ class Search extends Component {
                      lon: lon
                    }
                  });
-
               })
               .catch((error) => {
                 console.error(error);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { View, ListView } from 'react-native';
 import Button from 'react-native-button';
 import styles from '../styles/menu'
 
@@ -33,10 +33,12 @@ class Menu extends Component {
 
     render() {
         return (
-          <ListView
-            style={styles.container}
-            dataSource={this.state.dataSource}
-            renderRow={(item) => this._renderMenuItem(item)} />
+          <View style={styles.container} >
+            <ListView
+              style={styles.favoritesList}
+              dataSource={this.state.dataSource}
+              renderRow={(item) => this._renderMenuItem(item)} />
+          </View>
         );
     }
 }
