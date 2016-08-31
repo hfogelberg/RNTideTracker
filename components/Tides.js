@@ -9,9 +9,10 @@ import {
   Navigator
 } from 'react-native';
 import styles from '../styles/styles';
-import {PLACES_API_KEY, TIDE_API_KEY} from '../config/settings.js';
+import {PLACES_API_KEY, TIDE_API_KEY} from '../config/settings';
 import Moment from 'moment';
 import Realm from 'realm';
+import {FETCHING_TIDES, CHECKING_LOCATION, GENERAL_ERROR,TIDE_ERROR, LOCATION_ERROR} from '../constants/messages';
 
 const Tides = React.createClass({
 
@@ -19,9 +20,10 @@ const Tides = React.createClass({
     return {
       extremes: [],
       location: '',
-      name: 'Tidetracker',
+      station: 'Tidetracker',
       lat: 0,
-      lon: 0
+      lon: 0,
+      statusText: CHECKING_LOCATION
     };
   },
 
@@ -30,7 +32,7 @@ const Tides = React.createClass({
       this.setState({
         lon: this.props.lon,
         lat: this.props.lat,
-        name: this.props.name,
+        station: this.props.station,
         location: 'Lat: ' + this.props.lat.toFixed(3) + ', lon: ' + this.props.lon.toFixed(3)
       }, function() {
         this.savePosition();
@@ -52,11 +54,11 @@ const Tides = React.createClass({
             location: 'Lat: ' + coords.latitude + ', Lon: ' + coords.longitude
           }, function() {
             this.getExtremes();
-            this.reverseGeocode();
+            // this.reverseGeocode();
           });
         }
       },
-      (error) => alert(error.message),
+      (error) => this.setState({statusText: LOCATION_ERROR}),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
   },
@@ -66,17 +68,17 @@ const Tides = React.createClass({
       schema: [{
         name: 'Locations',
         properties: {
-          name: 'string',
+          station: 'string',
           lat: 'float',
           lon: 'float'
         }}]
     });
 
-    let locations = realm.objects('Locations').filtered('name=$0', this.state.name);
+    let locations = realm.objects('Locations').filtered('station=$0', this.state.station);
     if (locations.length == 0){
       realm.write(() => {
         realm.create('Locations', {
-          name: this.state.name,
+          station: this.state.station,
           lat: this.state.lat,
           lon: this.state.lon
         })
@@ -93,7 +95,7 @@ const Tides = React.createClass({
         if (responseJson.results.length > 0){
           console.log(responseJson);
           this.setState({
-            name: responseJson.results[0].vicinity
+            station: responseJson.results[0].vicinity
           },
             function(){
               this.savePosition()
@@ -102,24 +104,31 @@ const Tides = React.createClass({
         }
       })
       .catch((error) => {
-        console.log('Boom!');
         console.error(error);
       });
   },
 
   getExtremes: function() {
     // Don't load data for the North pole!
+    this.setState({statusText: FETCHING_TIDES})
     if ((this.state.lat != 0) && (this.state.lon != 0)) {
       const url = `https://www.worldtides.info/api?extremes&lat=${this.state.lat}&lon=${this.state.lon}&key=${TIDE_API_KEY}`
-
+      console.log(url);
       fetch(url)
         .then((response) => response.json())
         .then((responseJson) => {
+          console.log(responseJson);
           const extremes = responseJson.extremes;
-          this.setState({extremes});
-          this.reverseGeocode();
+          const station = responseJson.station;
+          console.log('Station name: ' + station);
+          if station != 'undefined' {
+            this.setState({extremes, station});
+          } else {
+            this.reverseGeocode();
+          }
       })
       .catch((error) => {
+        this.setState({extremes: []})
         console.error(error);
       });
     }
@@ -128,7 +137,7 @@ const Tides = React.createClass({
     if (this.state.extremes.length == 0) {
       return (
         <View style={styles.loadingView}>
-          <Text style={styles.loadingText}>Fetchings tides ... </Text>
+          <Text style={styles.loadingText} numberOfLines={4}>{this.state.statusText}</Text>
         </View>
       )
     } else {
@@ -164,7 +173,7 @@ const Tides = React.createClass({
       <View style={styles.container}>
         <View style={styles.titleView}>
           <Text style={styles.title}>
-            {this.state.name}
+            {this.state.station}
           </Text>
           <Text style={styles.locationText}>
             {this.state.location}

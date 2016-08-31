@@ -14,7 +14,7 @@ let realm = new Realm({
   schema: [{
     name: 'Locations',
     properties: {
-      name: 'string',
+      station: 'string',
       lat: 'float',
       lon: 'float'
     }}]
@@ -68,13 +68,13 @@ class Favorites extends Component {
      passProps: {
        lat: favorite.lat,
        lon: favorite.lon,
-       name: favorite.name
+       station: favorite.station
      }
    });
   }
 
   onDeleteItem(favorite) {
-    console.log('Delete: ' + favorite.name);
+    console.log('Delete: ' + favorite.station);
 
     realm.write(() => {
       realm.delete(favorite);
@@ -98,9 +98,9 @@ class Favorites extends Component {
     if (this.state.favorites.length > 0) {
       return this.state.favorites.map((favorite) => {
         return (
-          <View key={favorite.name} style={styles.favoritesListItem}>
+          <View key={favorite.station} style={styles.favoritesListItem}>
             <TouchableOpacity onPress={() => this.onItemPress(favorite)}>
-              <Text style={styles.favoriteName}>{favorite.name}</Text>
+              <Text style={styles.favoriteName}>{favorite.station}</Text>
             </TouchableOpacity>
             {this.renderDeleteIcon()}
           </View>

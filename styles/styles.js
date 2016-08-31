@@ -92,7 +92,9 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   loadingText: {
-    fontSize: 30
+    fontSize: 30,
+    textAlign: 'center',
+    justifyContent: 'center'
   },
   pullRightContainer: {
     alignSelf: 'stretch',
