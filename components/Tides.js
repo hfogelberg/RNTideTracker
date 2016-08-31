@@ -28,14 +28,15 @@ const Tides = React.createClass({
   },
 
   componentDidMount: function() {
+    console.log('componentDidMount');
+    console.log(this.props.lat);
+    console.log(this.props.lon);
     if (this.props.lat != null) {
       this.setState({
         lon: this.props.lon,
         lat: this.props.lat,
-        station: this.props.station,
         location: 'Lat: ' + this.props.lat.toFixed(3) + ', lon: ' + this.props.lon.toFixed(3)
       }, function() {
-        this.savePosition();
         this.getExtremes();
       });
     } else {
@@ -64,6 +65,7 @@ const Tides = React.createClass({
   },
 
   savePosition: function() {
+    console.log('Save position');
     let realm = new Realm({
       schema: [{
         name: 'Locations',
@@ -73,6 +75,8 @@ const Tides = React.createClass({
           lon: 'float'
         }}]
     });
+
+    console.log('Realm file path: ' + realm.path);
 
     let locations = realm.objects('Locations').filtered('station=$0', this.state.station);
     if (locations.length == 0){
@@ -110,6 +114,7 @@ const Tides = React.createClass({
 
   getExtremes: function() {
     // Don't load data for the North pole!
+    console.log('getExtremes');
     this.setState({statusText: FETCHING_TIDES})
     if ((this.state.lat != 0) && (this.state.lon != 0)) {
       const url = `https://www.worldtides.info/api?extremes&lat=${this.state.lat}&lon=${this.state.lon}&key=${TIDE_API_KEY}`
@@ -119,16 +124,21 @@ const Tides = React.createClass({
         .then((responseJson) => {
           console.log(responseJson);
           const extremes = responseJson.extremes;
+          this.setState({extremes})
           const station = responseJson.station;
           console.log('Station name: ' + station);
-          if station != 'undefined' {
-            this.setState({extremes, station});
+          if (typeof station !== 'undefined') {
+            this.setState({station});
+            this.savePosition();
           } else {
             this.reverseGeocode();
           }
       })
       .catch((error) => {
-        this.setState({extremes: []})
+        this.setState({
+          extremes: [],
+          statusText: TIDE_ERROR
+        })
         console.error(error);
       });
     }

@@ -31,14 +31,12 @@ class Search extends Component {
                   console.log(place.name);
                   var lat = place.geometry.location.lat;
                   var lon = place.geometry.location.lng;
-                  var name = place.name;
 
                   this.props.navigator.push({
                    id: 'Tides',
                    passProps: {
                      lat: lat,
-                     lon: lon,
-                     name: name
+                     lon: lon
                    }
                  });
 
