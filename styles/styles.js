@@ -3,11 +3,8 @@ import * as colors from '../constants/colors';
 
 export default StyleSheet.create({
   container: {
-    // marginTop: 70,
     backgroundColor: colors.COLOR_LIGHT_BLUE,
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center'
   },
   navBar: {
     alignItems: 'center'
@@ -60,8 +57,6 @@ export default StyleSheet.create({
     fontWeight: '500'
   },
   locationText: {
-    // justifyContent: 'center',
-    // alignItems: 'center',
     fontSize: 12,
     color: colors.COLOR_ORANGE
   },
@@ -78,11 +73,6 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center'
   },
-  // tideType: {
-  //   fontSize: 32,
-  //   fontWeight: 'bold',
-  //   color: colors.COLOR_MENU_TEXT
-  // },
   tideHeight: {
     textAlign: 'left',
     fontSize: 20,
@@ -130,25 +120,12 @@ export default StyleSheet.create({
     marginRight: 20,
     alignSelf: 'stretch'
   },
-  // favoriteContainer: {
-  //   flex: 7,
-  //   // alignItems: 'stretch',
-  //   // justifyContent: 'center',
-  //   // marginTop: 20,
-  //   backgroundColor: 'yellow',
-  //   marginLeft: 20,
-  //   marginRight: 20
-  // },
   favoriteContainer: {
-    // flex: 10,
     alignSelf: 'stretch',
     marginLeft: 20,
     alignItems: 'stretch'
   },
   favoritesListItem: {
-    // flexDirection: 'row',
-    // flex: 1,
-    // justifyContent: 'space-between'
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between'

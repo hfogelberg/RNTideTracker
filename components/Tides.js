@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   Image,
   View,
-  Navigator
+  Navigator,
+  Modal
 } from 'react-native';
 import styles from '../styles/styles';
 import {PLACES_API_KEY, TIDE_API_KEY} from '../config/settings';
@@ -23,8 +24,14 @@ const Tides = React.createClass({
       station: 'Tidetracker',
       lat: 0,
       lon: 0,
+      modalVisible: false,
+      warning: '',
       statusText: CHECKING_LOCATION
     };
+  },
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   },
 
   componentDidMount: function() {
@@ -124,9 +131,10 @@ const Tides = React.createClass({
         .then((responseJson) => {
           console.log(responseJson);
           const extremes = responseJson.extremes;
-          this.setState({extremes})
           const station = responseJson.station;
-          console.log('Station name: ' + station);
+          const warning = responseJson.copyright;
+          this.setState({extremes, warning})
+
           if (typeof station !== 'undefined') {
             this.setState({station});
             this.savePosition();
@@ -197,6 +205,11 @@ const Tides = React.createClass({
         </View>
         <View
           style={styles.pullRightContainer}>
+          <TouchableHighlight onPress={() => {this.setModalVisible(true)}}>
+            <Image
+              source={require('../assets/Warning.png')}
+              style={styles.icon}/>
+          </TouchableHighlight>
           <TouchableOpacity
             onPress={()=>this.refreshLocation()}
             style = {styles.pullRightItem} >
