@@ -11,8 +11,12 @@ class About extends Component {
   render() {
     return (
       <View style = {styles.container}>
-        <Text style={styles.about}>
-          About
+        <View style={styles.aboutHeaderContainer}>
+          <Text style={styles.aboutHeaderText}>
+            About
+          </Text>
+        </View>
+        <Text style={styles.aboutText}>
           {'\n\n'}
           Please note that the information given here is a FORECAST of the tidal conditions.
           {'\n\n'}

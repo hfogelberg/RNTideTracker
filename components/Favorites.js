@@ -63,6 +63,7 @@ class Favorites extends Component {
   }
 
   onItemPress(favorite) {
+    console.log('onItemPress: ' + favorite.station);
     this.props.navigator.push({
      id: 'Tides',
      passProps: {

@@ -46,13 +46,13 @@ export default StyleSheet.create({
     justifyContent: 'flex-end'
   },
   titleView: {
-    marginTop: 30,
+    marginTop: 60,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1
   },
   title: {
-    fontSize: 32,
+    fontSize: 24,
     color: colors.COLOR_ORANGE,
     fontWeight: '500'
   },
@@ -92,13 +92,13 @@ export default StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: colors.COLOR_ORANGE,
-    // textAlign: 'center',
-    // justifyContent: 'center'
+    textAlign: 'center',
+    justifyContent: 'center'
   },
   pullRightContainer: {
     alignSelf: 'stretch',
-    marginRight: 50,
-    marginBottom: 50
+    marginRight: 30,
+    marginBottom: 30
   },
   pullRightItem: {
     alignItems: 'flex-end'
@@ -107,11 +107,21 @@ export default StyleSheet.create({
     flex: 1,
     marginTop: 70
   },
-  about: {
+  aboutHeaderContainer: {
     flex: 1,
+    flexDirection: 'row',
     marginTop: 70,
-    marginRight: 10,
-    marginLeft: 10
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  aboutHeaderText: {
+    fontSize: 24,
+    fontWeight: 'bold'
+  },
+  aboutText: {
+    flex: 6,
+    marginRight: 20,
+    marginLeft: 20
   },
   editContainer: {
     // flex: 1,

@@ -6,7 +6,7 @@ import {
   Navigator
 } from 'react-native';
 import styles from '../styles/styles';
-import {PLACES_API_KEY} from '../config/settings.js';
+import {PLACES_API_KEY} from '../settings.js';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import _ from 'underscore';
 
@@ -36,7 +36,8 @@ class Search extends Component {
                    id: 'Tides',
                    passProps: {
                      lat: lat,
-                     lon: lon
+                     lon: lon,
+                     station: place.name
                    }
                  });
               })

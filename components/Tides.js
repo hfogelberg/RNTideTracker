@@ -10,7 +10,7 @@ import {
   Modal
 } from 'react-native';
 import styles from '../styles/styles';
-import {PLACES_API_KEY, TIDE_API_KEY} from '../config/settings';
+import {PLACES_API_KEY, TIDE_API_KEY} from '../settings';
 import Moment from 'moment';
 import Realm from 'realm';
 import {FETCHING_TIDES, CHECKING_LOCATION, GENERAL_ERROR,TIDE_ERROR, LOCATION_ERROR} from '../constants/messages';
@@ -38,11 +38,13 @@ const Tides = React.createClass({
     console.log('componentDidMount');
     console.log(this.props.lat);
     console.log(this.props.lon);
+    console.log(this.props.station);
     if (this.props.lat != null) {
       this.setState({
         lon: this.props.lon,
         lat: this.props.lat,
-        location: 'Lat: ' + this.props.lat.toFixed(3) + ', lon: ' + this.props.lon.toFixed(3)
+        location: 'Lat: ' + this.props.lat.toFixed(3) + ', lon: ' + this.props.lon.toFixed(3),
+        station: this.props.station
       }, function() {
         this.getExtremes();
       });
@@ -55,14 +57,16 @@ const Tides = React.createClass({
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const coords = position.coords;
+        console.log('refreshLocation');
+        console.log('Coords. lat: ' + coords.latitude + ', lon: ' + coords.longitude);
         if (coords != null) {
           this.setState({
             lon: coords.longitude,
             lat: coords.latitude,
-            location: 'Lat: ' + coords.latitude + ', Lon: ' + coords.longitude
+            location: 'Lat: ' + coords.latitude.toFixed(3) + ', lon: ' + coords.longitude.toFixed(3)
           }, function() {
             this.getExtremes();
-            // this.reverseGeocode();
+            this.reverseGeocode();
           });
         }
       },
@@ -98,23 +102,39 @@ const Tides = React.createClass({
   },
 
   reverseGeocode: function() {
-    let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`;
+    let url =`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`
     console.log('reverseGeocode', url);
     fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.results.length > 0){
-          console.log(responseJson);
-          this.setState({
-            station: responseJson.results[0].vicinity
-          },
+          console.log('reverseGeocode response', responseJson);
+          let results = responseJson.results;
+          console.log('Results: ' + results);
+
+          let addressComponents = results[0].address_components;
+          console.log('addressComponents: ' + addressComponents);
+          var station = '';
+          addressComponents.forEach(function(component) {
+            console.log('Component: ' + component);
+            if (component.types[0] == "locality") {
+              station = component.short_name;
+            }
+          })
+
+          console.log('Setting state to ' + station);
+          this.setState({station},
             function(){
+              console.log('Calling save position');
               this.savePosition()
             }
           );
+        } else {
+          console.log('No result when reverse geocoding');
         }
       })
       .catch((error) => {
+        console.log('Error revers geocoding');
         console.error(error);
       });
   },
@@ -205,11 +225,6 @@ const Tides = React.createClass({
         </View>
         <View
           style={styles.pullRightContainer}>
-          <TouchableHighlight onPress={() => {this.setModalVisible(true)}}>
-            <Image
-              source={require('../assets/Warning.png')}
-              style={styles.icon}/>
-          </TouchableHighlight>
           <TouchableOpacity
             onPress={()=>this.refreshLocation()}
             style = {styles.pullRightItem} >
