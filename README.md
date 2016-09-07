@@ -5,6 +5,5 @@ Tidetracker is a mobile app, written in React native. The main idea is to learn 
 ##To Do
 1. Make DRY
 2. Add icons to menu Drawer
-3. Colors and styling
 
 ´

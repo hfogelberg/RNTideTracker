@@ -76,14 +76,13 @@ class App extends Component {
     _renderScene(route, navigator) {
         switch (route.id) {
           case 'Tides':
-            return (
-              <Tides navigator={navigator} {...route.passProps} />);
-            case 'Favorites':
-              return (<Favorites navigator={navigator} {...route.passProps} />);
-            case 'Search':
-              return (<Search navigator={navigator} {...route.passProps} />);
-            case 'About':
-              return (<About navigator={navigator} />);
+            return (<Tides navigator={navigator} {...route.passProps} />);
+          case 'Favorites':
+            return (<Favorites navigator={navigator} {...route.passProps} />);
+          case 'Search':
+            return (<Search navigator={navigator} {...route.passProps} />);
+          case 'About':
+            return (<About navigator={navigator} />);
         }
     }
 }

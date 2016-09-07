@@ -19,6 +19,7 @@ class Search extends Component {
           placeholder='Search'
           minLength={2} // minimum length of text to search
           autoFocus={false}
+          style={styles.container}
           onPress={(data, details = null) => {
             var placeId =  data['place_id'];
 
