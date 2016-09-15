@@ -33,8 +33,8 @@
 		669FE932200A4FD394CD9D61 /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67713B8CF4D545399E014710 /* libRealmReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		A74D1B0524CA438BA26721CA /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C972CEC4822426D96E6B910 /* EvilIcons.ttf */; };
+		AF6F1CAA1D89630C00FC58FC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6F1CA91D89630C00FC58FC /* Media.xcassets */; };
 		AFA9C8741D783EBF00B0B54F /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA9C8731D783EBF00B0B54F /* Logo.png */; };
-		AFA9F8E11D787D5C00B466B7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA9F8E01D787D5C00B466B7 /* Media.xcassets */; };
 		E24D630BB2D8425A95DD9E08 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4B33AB09CC54E4E94D3E6E7 /* Foundation.ttf */; };
 		E63C6EE4ABB84631AE916D7A /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE568919C511436DA6543C97 /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
@@ -147,7 +147,7 @@
 		1131C76E41EA4C3AA64D5D25 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* RNTideTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNTideTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Tide Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tide Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RNTideTracker/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = RNTideTracker/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -167,8 +167,8 @@
 		AE568919C511436DA6543C97 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		AF1D18E920A04BB0A604BDFC /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		AF5BF0151D7EE71300A09ABD /* Puerto.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Puerto.gpx; sourceTree = "<group>"; };
+		AF6F1CA91D89630C00FC58FC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		AFA9C8731D783EBF00B0B54F /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
-		AFA9F8E01D787D5C00B466B7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		E4B33AB09CC54E4E94D3E6E7 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		EA25F73DA2E1405697A4F2D9 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		F976B144256F485B92C09F49 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -283,7 +283,7 @@
 		13B07FAE1A68108700A75B9A /* RNTideTracker */ = {
 			isa = PBXGroup;
 			children = (
-				AFA9F8E01D787D5C00B466B7 /* Media.xcassets */,
+				AF6F1CA91D89630C00FC58FC /* Media.xcassets */,
 				AFA9C8731D783EBF00B0B54F /* Logo.png */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -357,7 +357,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* RNTideTracker.app */,
+				13B07F961A680F5B00A75B9A /* Tide Tracker.app */,
 				00E356EE1AD99517003FC87E /* RNTideTrackerTests.xctest */,
 			);
 			name = Products;
@@ -439,7 +439,7 @@
 			);
 			name = RNTideTracker;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* RNTideTracker.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Tide Tracker.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -449,7 +449,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 610;
-				ORGANIZATIONNAME = Facebook;
+				ORGANIZATIONNAME = "Island Apps";
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -460,7 +460,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Tide Tracker" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RNTideTracker" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -638,7 +638,7 @@
 				4BACE9054064455F9859E553 /* Ionicons.ttf in Resources */,
 				E63C6EE4ABB84631AE916D7A /* MaterialIcons.ttf in Resources */,
 				375D361ACA8D45159A9D810B /* Octicons.ttf in Resources */,
-				AFA9F8E11D787D5C00B466B7 /* Media.xcassets in Resources */,
+				AF6F1CAA1D89630C00FC58FC /* Media.xcassets in Resources */,
 				4F51589A35874FD08DFD6A01 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -764,7 +764,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.islandapps.tidetracker;
-				PRODUCT_NAME = RNTideTracker;
+				PRODUCT_NAME = "Tide Tracker";
 			};
 			name = Debug;
 		};
@@ -789,7 +789,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.islandapps.tidetracker;
-				PRODUCT_NAME = RNTideTracker;
+				PRODUCT_NAME = "Tide Tracker";
 			};
 			name = Release;
 		};
@@ -904,7 +904,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Tide Tracker" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RNTideTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

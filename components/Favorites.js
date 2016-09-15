@@ -85,7 +85,7 @@ class Favorites extends Component {
   }
 
 
-  renderDeleteIcon() {
+  renderDeleteIcon(favorite) {
     if(this.state.editMode == true) {
       return (
         <TouchableOpacity onPress={() => this.onDeleteItem(favorite)}>
@@ -103,7 +103,7 @@ class Favorites extends Component {
             <TouchableOpacity onPress={() => this.onItemPress(favorite)}>
               <Text style={styles.favoriteName}>{favorite.station}</Text>
             </TouchableOpacity>
-            {this.renderDeleteIcon()}
+            {this.renderDeleteIcon(favorite)}
           </View>
         )
       });
