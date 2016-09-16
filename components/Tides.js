@@ -115,18 +115,31 @@ const Tides = React.createClass({
           if(addressComponents) {
             addressComponents.forEach(function(component) {
               console.log('component type: ' + component.types[0]);
-              if (component.types[0] == 'locality') {
+              if (component.types[0] == 'postal_town') {
                 station = component.short_name;
-              } else if (component.types[0] == 'postal_town') {
+                console.log('1: ' + station);
+              }
+              if ((component.types[0] == 'locality') && (station=='')) {
                 station = component.short_name;
-              } else if(component.types[0] == 'administrative_area_level_1') {
+                console.log('2: ' + station);
+              }
+              if((component.types[0] == 'administrative_area_level_1') && (station=='')) {
                 station = component.short_name;
+                console.log('3: ' + station);
+              }
+              if((component.types[0] == 'administrative_area_level_2') && (station=='')) {
+                station = component.short_name;
+                console.log('4: ' + station);
               }
             });
           }
+
           if(station == '') {
             station = 'Tidetracker';
           }
+
+          this.setState({station});
+          console.log('Station set to ' + this.state.station);
 
         } else {
           console.log('No result when reverse geocoding');

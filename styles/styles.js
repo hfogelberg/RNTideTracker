@@ -9,7 +9,8 @@ export default StyleSheet.create({
     flex: 1,
   },
   navBar: {
-    alignItems: 'center'
+    alignItems: 'center',
+    // backgroundColor: colors.COLOR_LIGHT_BLUE
   },
   navBarText: {
     fontSize: 16,
@@ -39,8 +40,8 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     flex: 1,
-    marginTop: 15,
-    backgroundColor: 'gray'
+    // marginTop: 15,
+    backgroundColor: colors.COLOR_LIGHT_BLUE,
   },
   searchButton: {
     marginRight: 10,
@@ -135,6 +136,7 @@ export default StyleSheet.create({
     alignItems: 'flex-start'
   },
   placesSearch: {
+    backgroundColor: colors.COLOR_LIGHT_BLUE,
     flex: 1,
     marginTop: 70
   },
