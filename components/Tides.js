@@ -35,10 +35,6 @@ const Tides = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log('componentDidMount');
-    console.log(this.props.lat);
-    console.log(this.props.lon);
-    console.log(this.props.station);
     if (this.props.lat != null) {
       this.setState({
         lon: this.props.lon,
@@ -57,8 +53,7 @@ const Tides = React.createClass({
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const coords = position.coords;
-        console.log('refreshLocation');
-        console.log('Coords. lat: ' + coords.latitude + ', lon: ' + coords.longitude);
+        console.log('Refresh location. Coords. lat: ' + coords.latitude + ', lon: ' + coords.longitude);
         if (coords != null) {
           this.setState({
             lon: coords.longitude,
@@ -76,7 +71,6 @@ const Tides = React.createClass({
   },
 
   savePosition: function() {
-    console.log('Save position');
     let realm = new Realm({
       schema: [{
         name: 'Locations',
@@ -102,30 +96,29 @@ const Tides = React.createClass({
   },
 
   reverseGeocode: function() {
-    let url =`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`
-    console.log('reverseGeocode', url);
     fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.results.length > 0){
-          console.log('reverseGeocode response', responseJson);
           let results = responseJson.results;
-          console.log('Results: ' + results);
 
           let addressComponents = results[0].address_components;
-          console.log('addressComponents: ' + addressComponents);
           var station = '';
+          var town = '';
           addressComponents.forEach(function(component) {
-            console.log('Component: ' + component);
-            if (component.types[0] == "locality") {
+            if (component.types[0] == 'locality') {
               station = component.short_name;
+            }
+            if (component.types[0] == 'postal_town') {
+              town = component.short_name;
             }
           })
 
-          console.log('Setting state to ' + station);
+          if (station == '') {
+            station = town;
+          }
           this.setState({station},
             function(){
-              console.log('Calling save position');
               this.savePosition()
             }
           );
@@ -141,7 +134,6 @@ const Tides = React.createClass({
 
   getExtremes: function() {
     // Don't load data for the North pole!
-    console.log('getExtremes');
     this.setState({statusText: FETCHING_TIDES})
     if ((this.state.lat != 0) && (this.state.lon != 0)) {
       const url = `https://www.worldtides.info/api?extremes&lat=${this.state.lat}&lon=${this.state.lon}&key=${TIDE_API_KEY}`
@@ -149,15 +141,24 @@ const Tides = React.createClass({
       fetch(url)
         .then((response) => response.json())
         .then((responseJson) => {
+          var station;
           console.log(responseJson);
-          const extremes = responseJson.extremes;
-          const station = responseJson.station;
-          const warning = responseJson.copyright;
-          this.setState({extremes, warning})
+          var extremes = responseJson.extremes;
+          if (this.state.station != ''){
+            station = this.state.station
+          } else {
+            station = responseJson.station;
+          }
+          var warning = responseJson.copyright;
+          this.setState({extremes, warning});
 
-          if (typeof station !== 'undefined') {
-            this.setState({station});
-            this.savePosition();
+          if ((typeof station !== 'undefined')) {
+            if(station) {
+              this.setState({station});
+              this.savePosition();
+            } else {
+              this.reverseGeocode();
+            }
           } else {
             this.reverseGeocode();
           }
@@ -197,7 +198,6 @@ const Tides = React.createClass({
   },
 
   renderIcon: function(type) {
-    console.log(type);
     if (type == 'High') {
       return <Image
                 source={require('../assets/HighTide.png')}
