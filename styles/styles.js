@@ -4,6 +4,7 @@ import * as fonts from '../constants/fonts';
 
 export default StyleSheet.create({
   container: {
+    paddingTop: 10,
     backgroundColor: colors.COLOR_LIGHT_BLUE,
     flex: 1,
   },
@@ -15,9 +16,8 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   navBarTitleText: {
-    fontWeight: '500',
-    fontSize: 22,
-    marginVertical: 9,
+    fontWeight: fonts.FONT_HEADER_WEIGHT,
+    fontSize: 22
   },
   navBarLeftButton: {
     paddingLeft: 10,
@@ -47,7 +47,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-end'
   },
   titleView: {
-    marginTop: 60,
+    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1
@@ -64,29 +64,47 @@ export default StyleSheet.create({
     color: colors.COLOR_ORANGE
   },
   tidesContainer: {
+    padding: 10,
     flex: 8,
     alignSelf: 'stretch',
-    // marginLeft: 20,
-    marginTop: 30,
-    alignItems: 'stretch'
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    alignItems: 'stretch',
+    shadowColor: "black",
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 0,
+      width: 0
+    }
   },
   tideItem: {
     flexDirection: 'row',
     alignItems: 'stretch',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+    paddingRight: 8
+  },
+  tideType: {
+    fontFamily: fonts.FONT_TIDE_TYPE,
+    fontSize: fonts.FONT_TIDE_TYPE_SIZE,
+    textAlign: 'left',
+    color: colors.COLOR_TIDE_TEXT
   },
   tideHeight: {
     fontFamily: fonts.FONT_TIDE_HEIGHT,
     textAlign: 'left',
     fontSize: fonts.FONT_TIDE_HEIGHT_SIZE,
-    color: colors.COLOR_MENU_TEXT
+    color: colors.COLOR_TIDE_TEXT,
+    fontWeight: fonts.FONT_TIDE_HEIGHT_WEIGHT,
   },
   tideDate: {
     fontFamily: fonts.FONT_TIDE_DATE,
     fontSize: fonts.FONT_TIDE_DATE_SIZE,
-    alignItems: 'flex-end',
-    color: colors.COLOR_MENU_TEXT
+    alignItems: 'flex-start',
+    color: colors.COLOR_TIDE_TEXT
   },
   loadingView: {
     flex: 4,
@@ -101,13 +119,18 @@ export default StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center'
   },
-  pullRightContainer: {
+  pullContainer: {
     alignSelf: 'stretch',
+    marginLeft: 30,
     marginRight: 30,
-    marginBottom: 30
+    marginBottom: 10
   },
   pullRightItem: {
     alignItems: 'flex-end'
+  },
+  pullLeftItem: {
+
+    alignItems: 'flex-start'
   },
   placesSearch: {
     flex: 1,

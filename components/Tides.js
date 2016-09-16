@@ -117,11 +117,7 @@ const Tides = React.createClass({
           if (station == '') {
             station = town;
           }
-          this.setState({station},
-            function(){
-              this.savePosition()
-            }
-          );
+          this.setState({station});
         } else {
           console.log('No result when reverse geocoding');
         }
@@ -155,7 +151,6 @@ const Tides = React.createClass({
           if ((typeof station !== 'undefined')) {
             if(station) {
               this.setState({station});
-              this.savePosition();
             } else {
               this.reverseGeocode();
             }
@@ -189,8 +184,11 @@ const Tides = React.createClass({
         return (
           <View key={tide.dt} style={styles.tideItem}>
             {this.renderIcon(tide.type)}
+            <View>
+              <Text style={styles.tideType}>{tide.type}</Text>
+              <Text style={styles.tideDate}>{formatedDate}</Text>
+            </View>
             <Text style={styles.tideHeight}>{roundedHeight}</Text>
-            <Text style={styles.tideDate}>{formatedDate}</Text>
           </View>
         )
       });
@@ -209,6 +207,11 @@ const Tides = React.createClass({
     };
   },
 
+  newFavorite: function() {
+    console.log('NewFavorite');
+    this.savePosition();
+  },
+
   render() {
     return (
       <View style={styles.container}>
@@ -220,16 +223,29 @@ const Tides = React.createClass({
             {this.state.location}
           </Text>
         </View>
-        <View style={styles.tidesContainer}>
-          { this.iterateTides() }
-        </View>
+
         <View
-          style={styles.pullRightContainer}>
+          style={styles.pullContainer}>
           <TouchableOpacity
             onPress={()=>this.refreshLocation()}
             style = {styles.pullRightItem} >
               <Image
                 source={require('../assets/GPSDevice.png')}
+                style={styles.icon}/>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.tidesContainer}>
+          { this.iterateTides() }
+        </View>
+
+        <View
+          style={styles.pullContainer}>
+          <TouchableOpacity
+            onPress={()=>this.newFavorite()}
+            style = {styles.pullLeftItem} >
+              <Image
+                source={require('../assets/NewFavorite.png')}
                 style={styles.icon}/>
           </TouchableOpacity>
         </View>
