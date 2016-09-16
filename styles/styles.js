@@ -39,7 +39,7 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     flex: 1,
-    marginTop: 10,
+    marginTop: 15,
     backgroundColor: 'gray'
   },
   searchButton: {
@@ -47,7 +47,8 @@ export default StyleSheet.create({
     justifyContent: 'flex-end'
   },
   titleView: {
-    marginTop: 10,
+    marginTop: 20,
+    marginLeft: 50,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1
@@ -64,7 +65,8 @@ export default StyleSheet.create({
     color: colors.COLOR_ORANGE
   },
   tidesContainer: {
-    padding: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
     flex: 8,
     alignSelf: 'stretch',
     marginLeft: 10,

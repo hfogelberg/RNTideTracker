@@ -35,6 +35,11 @@ const Tides = React.createClass({
   },
 
   componentDidMount: function() {
+    console.log('componentDidMount. Station: ' + this.props.station);
+    var station = this.props.station;
+    if (typeof station !== 'undefined') {
+      station = 'Tidetracker';
+    }
     if (this.props.lat != null) {
       this.setState({
         lon: this.props.lon,
@@ -50,6 +55,7 @@ const Tides = React.createClass({
   },
 
   refreshLocation: function() {
+    console.log('Refresh location');
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const coords = position.coords;
@@ -96,35 +102,51 @@ const Tides = React.createClass({
   },
 
   reverseGeocode: function() {
+    let url =`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lon}&key=${PLACES_API_KEY}`
+    console.log('reverseGeocode', url);
     fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.results.length > 0){
-          let results = responseJson.results;
-
-          let addressComponents = results[0].address_components;
           var station = '';
-          var town = '';
-          addressComponents.forEach(function(component) {
-            if (component.types[0] == 'locality') {
-              station = component.short_name;
-            }
-            if (component.types[0] == 'postal_town') {
-              town = component.short_name;
-            }
-          })
+          let results = responseJson.results;
+          let addressComponents = results[0].address_components;
 
-          if (station == '') {
-            station = town;
+          if(addressComponents) {
+            addressComponents.forEach(function(component) {
+              console.log('component type: ' + component.types[0]);
+              if (component.types[0] == 'locality') {
+                station = component.short_name;
+              } else if (component.types[0] == 'postal_town') {
+                station = component.short_name;
+              } else if(component.types[0] == 'administrative_area_level_1') {
+                station = component.short_name;
+              }
+            });
           }
-          this.setState({station});
+          if(station == '') {
+            station = 'Tidetracker';
+          }
+
         } else {
           console.log('No result when reverse geocoding');
+          station = 'Tidetracker';
         }
+
+        if(station != '') {
+          this.setState({station});
+        }
+
       })
       .catch((error) => {
-        console.log('Error revers geocoding');
+        console.log('Error reverse geocoding');
         console.error(error);
+
+        this.setState({
+          extremes: [],
+          station: 'Tidetracker',
+          statusText: LOCATION_ERROR
+        })
       });
   },
 
@@ -138,7 +160,6 @@ const Tides = React.createClass({
         .then((response) => response.json())
         .then((responseJson) => {
           var station;
-          console.log(responseJson);
           var extremes = responseJson.extremes;
           if (this.state.station != ''){
             station = this.state.station
@@ -161,6 +182,7 @@ const Tides = React.createClass({
       .catch((error) => {
         this.setState({
           extremes: [],
+          station: 'Tidetracker',
           statusText: TIDE_ERROR
         })
         console.error(error);
@@ -178,7 +200,7 @@ const Tides = React.createClass({
         </View>
       )
     } else {
-      return this.state.extremes.map((tide) => {
+      return this.state.extremes.slice(0, 7).map((tide) => {
         const roundedHeight = tide.height.toFixed(2);
         const formatedDate = Moment(tide.date).format('ddd HH:mm');
         return (
@@ -216,7 +238,9 @@ const Tides = React.createClass({
     return (
       <View style={styles.container}>
         <View style={styles.titleView}>
-          <Text style={styles.title}>
+          <Text
+            adjustsFontSizeToFit='true'
+            style={styles.title}>
             {this.state.station.toUpperCase()}
           </Text>
           <Text style={styles.locationText}>
