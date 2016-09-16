@@ -135,7 +135,8 @@ export default StyleSheet.create({
   editContainer: {
     height: 40,
     marginTop: 70,
-    marginRight: 20,
+    marginRight: 10,
+    marginBottom: 20,
     alignSelf: 'stretch'
   },
   favoriteContainer: {
@@ -144,9 +145,11 @@ export default StyleSheet.create({
     alignItems: 'stretch'
   },
   favoritesListItem: {
+    height: 35,
     flexDirection: 'row',
     alignItems: 'stretch',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginRight: 10
   },
   favoriteName: {
     fontFamily: fonts.FONT_FAVORITE,

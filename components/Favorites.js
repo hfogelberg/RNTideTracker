@@ -57,9 +57,11 @@ class Favorites extends Component {
   }
 
   toggleEditMode() {
-    this.setState({
-      editMode: true
-    })
+    if (this.state.editMode == true) {
+      this.setState({ editMode: false});
+    } else {
+      this.setState({ editMode: true});      
+    }
   }
 
   onItemPress(favorite) {
