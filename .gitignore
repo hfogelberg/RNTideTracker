@@ -2,10 +2,6 @@
 #
 .DS_Store
 
-# Project specific
-settings.js
-ios/Puerto.gpx
-
 # Xcode
 #
 build/

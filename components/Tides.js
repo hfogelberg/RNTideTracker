@@ -252,7 +252,6 @@ const Tides = React.createClass({
       <View style={styles.container}>
         <View style={styles.titleView}>
           <Text
-            adjustsFontSizeToFit='true'
             style={styles.title}>
             {this.state.station.toUpperCase()}
           </Text>
