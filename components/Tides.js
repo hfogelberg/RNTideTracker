@@ -9,11 +9,18 @@ import {
   Navigator,
   Modal
 } from 'react-native';
-import styles from '../styles/styles';
-import {PLACES_API_KEY, TIDE_API_KEY} from '../settings';
 import Moment from 'moment';
-import Realm from 'realm';
-import {FETCHING_TIDES, CHECKING_LOCATION, GENERAL_ERROR,TIDE_ERROR, LOCATION_ERROR} from '../constants/messages';
+
+import {
+  FETCHING_TIDES,
+  CHECKING_LOCATION,
+  GENERAL_ERROR,
+  TIDE_ERROR,
+  LOCATION_ERROR
+} from '../constants/messages';
+import {PLACES_API_KEY, TIDE_API_KEY} from '../settings';
+import styles from '../styles/styles';
+import RealmHelper from '../helpers/realmHelper'
 
 const Tides = React.createClass({
 
@@ -77,28 +84,15 @@ const Tides = React.createClass({
   },
 
   savePosition: function() {
-    let realm = new Realm({
-      schema: [{
-        name: 'Locations',
-        properties: {
-          station: 'string',
-          lat: 'float',
-          lon: 'float'
-        }}]
-    });
-
-    console.log('Realm file path: ' + realm.path);
-
-    let locations = realm.objects('Locations').filtered('station=$0', this.state.station);
-    if (locations.length == 0){
-      realm.write(() => {
-        realm.create('Locations', {
-          station: this.state.station,
-          lat: this.state.lat,
-          lon: this.state.lon
-        })
-      });
+    console.log('Save position');
+    
+    let location = {
+      station: this.state.station,
+      lat: this.state.lat,
+      lon: this.state.lon
     }
+
+    RealmHelper.saveLocation(location);
   },
 
   reverseGeocode: function() {

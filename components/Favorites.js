@@ -8,17 +8,7 @@ import {
   Navigator
 } from 'react-native';
 import styles from '../styles/styles';
-import Realm from 'realm';
-
-let realm = new Realm({
-  schema: [{
-    name: 'Locations',
-    properties: {
-      station: 'string',
-      lat: 'float',
-      lon: 'float'
-    }}]
-});
+import RealmHelper from '../helpers/realmHelper';
 
 class Favorites extends Component {
   constructor(props) {
@@ -32,10 +22,9 @@ class Favorites extends Component {
   componentDidMount() {
     this.getFavorites();
   }
-
-
+  ''
   getFavorites() {
-    let favorites = realm.objects('Locations');
+    let favorites = RealmHelper.getLocations();
     this.setState({favorites});
   }
 
@@ -60,7 +49,7 @@ class Favorites extends Component {
     if (this.state.editMode == true) {
       this.setState({ editMode: false});
     } else {
-      this.setState({ editMode: true});      
+      this.setState({ editMode: true});
     }
   }
 
@@ -77,12 +66,7 @@ class Favorites extends Component {
   }
 
   onDeleteItem(favorite) {
-    console.log('Delete: ' + favorite.station);
-
-    realm.write(() => {
-      realm.delete(favorite);
-    });
-
+    RealmHelper.deleteLocation(favorite)
     this.getFavorites();
   }
 
